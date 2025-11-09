@@ -19,7 +19,7 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink>Upcoming Events</NavLink>
+        <NavLink to={"/up-coming-event"}>Upcoming Events</NavLink>
       </li>
     </>
   );
@@ -52,7 +52,9 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Good Gather</a>
+        <Link to={"/"} className="btn btn-ghost text-xl">
+          Good Gather
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>

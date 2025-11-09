@@ -3,6 +3,7 @@ import MainLayouts from "../layouts/MainLayouts/MainLayouts";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import UpcommingEvent from "../pages/UpcommingEvent/UpcommingEvent";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "/up-coming-event",
+        element: <UpcommingEvent></UpcommingEvent>,
       },
       {
         path: "/login",
