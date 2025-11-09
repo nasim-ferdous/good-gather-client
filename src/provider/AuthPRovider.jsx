@@ -64,8 +64,8 @@ const forgetPasswordUser = (email) => {
 
   const authInfo = {
     user,
-    setUser,
     loading,
+    setUser,
     createUser,
     signinUser,
     googleSignIn,
