@@ -54,7 +54,7 @@ const Login = () => {
     <div className="flex justify-center items-center py-10">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
-          <h1 className="text-3xl text-center text-green-700  font-bold">
+          <h1 className="text-3xl text-center text-emerald-700  font-bold">
             Login now!
           </h1>
           <form onSubmit={handleLogin}>
@@ -83,7 +83,7 @@ const Login = () => {
                 <button
                   onClick={() => setShow(!show)}
                   type="button"
-                  className="btn btn-xs bg-green-500 absolute top-6 right-5"
+                  className="btn btn-xs bg-emerald-600 hover:bg-emerald-700 absolute top-6 right-5"
                 >
                   {show ? <LuEye /> : <LuEyeClosed />}
                 </button>
@@ -92,18 +92,21 @@ const Login = () => {
                 <a
                   onClick={handleForgetPassword}
                   type="button"
-                  className="link link-hover text-green-400"
+                  className="link link-hover text-emerald-500"
                 >
                   Forgot password?
                 </a>
               </div>
-              <button type="submit" className="btn bg-green-500 mt-4">
+              <button
+                type="submit"
+                className="btn bg-emerald-600 text-white hover:bg-emerald-700 border-none"
+              >
                 Login
               </button>
               <button
                 type="button"
                 onClick={handleGoogleSignIn}
-                className="btn bg-green-300 text-black border-[#e5e5e5]"
+                className="btn bg-emerald-500 text-black border-[#e5e5e5]"
               >
                 <svg
                   aria-label="Google logo"
@@ -139,7 +142,7 @@ const Login = () => {
 
           <p>
             New here? please{" "}
-            <Link to={"/register"} className="text-green-600 font-bold">
+            <Link to={"/register"} className="text-emerald-600 font-bold">
               Register
             </Link>
           </p>

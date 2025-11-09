@@ -1,7 +1,7 @@
 import React from "react";
 
-const UpcommingEvent = () => {
+const UpcomingEvent = () => {
   return <div>events</div>;
 };
 
-export default UpcommingEvent;
+export default UpcomingEvent;
