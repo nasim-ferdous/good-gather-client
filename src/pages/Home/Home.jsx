@@ -1,8 +1,8 @@
 import React from "react";
-import { AuthContext } from "../../provider/AuthPRovider";
 import Banner from "../../components/Banner/Banner";
 import Features from "../../components/Features/Features";
 import Gallery from "../../components/Gallery/Gallery";
+import NewsLetter from "../../components/NewsLetter/NewsLetter";
 
 const Home = () => {
   return (
@@ -10,6 +10,7 @@ const Home = () => {
       <Banner></Banner>
       <Features></Features>
       <Gallery></Gallery>
+      <NewsLetter></NewsLetter>
     </div>
   );
 };

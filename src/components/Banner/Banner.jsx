@@ -6,7 +6,6 @@ const Banner = () => {
   return (
     <div className="hero bg-linear-to-r from-green-100 via-emerald-50 to-teal-100 text-gray-800 py-16 px-4">
       <div className="hero-content flex-col lg:flex-row-reverse gap-10 max-w-7xl mx-auto">
-        {/* Image Section */}
         <motion.img
           src="https://plus.unsplash.com/premium_photo-1726837345485-7a0a7d543290?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGxhbnRpbmclMjB0cmVlcyUyMHRvZ2V0aGVyfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=500"
           alt="GoodGather community"
@@ -17,7 +16,6 @@ const Banner = () => {
           viewport={{ once: true }}
         />
 
-        {/* Text Section */}
         <motion.div
           className="flex flex-col justify-center space-y-4 text-center lg:text-left"
           initial={{ opacity: 0, x: -100 }}
@@ -44,7 +42,6 @@ const Banner = () => {
             participate, and track social development events — all in one place.
           </motion.p>
 
-          {/* Animated Button as Link */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

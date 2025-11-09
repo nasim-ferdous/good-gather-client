@@ -19,6 +19,9 @@ const Navbar = () => {
   const links = (
     <>
       <li>
+        <NavLink to={"/"}>Home</NavLink>
+      </li>
+      <li>
         <NavLink to={"/up-coming-event"}>Upcoming Events</NavLink>
       </li>
     </>

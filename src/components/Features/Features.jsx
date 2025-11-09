@@ -38,7 +38,7 @@ const Features = () => {
   ];
 
   return (
-    <div className="bg-white py-10 px-6">
+    <div className="bg-emerald-100 py-10 px-6">
       <h2 className="text-3xl font-bold text-center text-emerald-800 mb-10">
         Why Choose GoodGather?
       </h2>
