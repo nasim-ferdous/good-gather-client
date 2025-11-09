@@ -1,12 +1,15 @@
 import React, { use, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { toast } from "react-toastify";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 const Register = () => {
   const [show, setShow] = useState(false);
-  const { createUser, googleSignIn } = use(AuthContext);
+  const { createUser, googleSignIn, updateProfileUser, setUser } =
+    use(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -27,8 +30,17 @@ const Register = () => {
 
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
-        toast.success("successfully registered");
+        const user = result.user;
+        updateProfileUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+            toast.success("successfully register");
+            navigate(`${location.state ? location.state : "/"}`);
+          })
+          .catch((error) => {
+            toast.error(error.message);
+            setUser(user);
+          });
       })
       .catch((error) => {
         toast.error(error.message);
@@ -39,6 +51,7 @@ const Register = () => {
       .then((result) => {
         console.log(result.user);
         toast.success("successfully registered");
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         toast.error(error.message);

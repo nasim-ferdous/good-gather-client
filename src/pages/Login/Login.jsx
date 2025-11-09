@@ -1,7 +1,55 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { use, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../../provider/AuthPRovider";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { signinUser, googleSignIn, forgetPasswordUser } = use(AuthContext);
+  const [show, setShow] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const emailRef = useRef(null);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+
+    signinUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        toast.success("successfully Login");
+        navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+  const handleGoogleSignIn = (e) => {
+    e.preventDefault();
+    googleSignIn()
+      .then((result) => {
+        const user = result.user;
+        toast.success("successfully Login");
+        navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+  const handleForgetPassword = () => {
+    console.log(emailRef.current.value);
+    const email = emailRef.current.value;
+    forgetPasswordUser(email)
+      .then(() => {
+        toast.success("Check your Email");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
   return (
     <div className="flex justify-center items-center py-10">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
@@ -9,7 +57,7 @@ const Login = () => {
           <h1 className="text-3xl text-center text-green-700  font-bold">
             Login now!
           </h1>
-          <form>
+          <form onSubmit={handleLogin}>
             <fieldset className="fieldset">
               {/* email */}
               <label className="label">Email</label>
@@ -17,6 +65,7 @@ const Login = () => {
                 type="email"
                 // ref={emailRef}
                 name="email"
+                ref={emailRef}
                 className="input"
                 placeholder="Email"
                 required
@@ -25,23 +74,23 @@ const Login = () => {
               <div className="relative">
                 <label className="label">Password</label>
                 <input
-                  type="password"
+                  type={show ? "text" : "password"}
                   name="password"
                   className="input"
                   placeholder="Password"
                   required
                 />
                 <button
-                  //   onClick={() => setShow(!show)}
+                  onClick={() => setShow(!show)}
                   type="button"
                   className="btn btn-xs bg-green-500 absolute top-6 right-5"
                 >
-                  {/* {show ? <LuEye /> : <LuEyeClosed />} */}
+                  {show ? <LuEye /> : <LuEyeClosed />}
                 </button>
               </div>
               <div>
                 <a
-                  //   onClick={handleForgetPassword}
+                  onClick={handleForgetPassword}
                   type="button"
                   className="link link-hover text-green-400"
                 >
@@ -53,7 +102,7 @@ const Login = () => {
               </button>
               <button
                 type="button"
-                // onClick={handleGoogleSignIn}
+                onClick={handleGoogleSignIn}
                 className="btn bg-green-300 text-black border-[#e5e5e5]"
               >
                 <svg
