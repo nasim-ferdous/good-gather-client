@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "../../components/EventCard/EventCard";
+import Loading from "../../components/Loading/Loading";
 
 const JoinedEvent = () => {
   const [joined, setJoined] = useState([]);
@@ -11,6 +12,10 @@ const JoinedEvent = () => {
         setJoined(result.result);
       });
   }, []);
+
+  if (!joined) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
