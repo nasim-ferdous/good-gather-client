@@ -17,6 +17,11 @@ const UpcomingEvent = () => {
         setEvents(upcoming);
       });
   }, []);
+
+  if (!events) {
+    return <Loading></Loading>;
+  }
+
   return (
     <div className="bg-emerald-50 min-h-screen py-16 px-6">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-10">

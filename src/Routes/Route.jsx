@@ -8,6 +8,7 @@ import CreateEvent from "../pages/CreateEvent/CreateEvent";
 import PrivetRoute from "../provider/PrivetRoute";
 import UpcomingEvent from "../pages/UpcommingEvent/UpcomingEvent";
 import EventDetail from "../pages/Eventdetail/Eventdetail";
+import JoinedEvent from "../pages/JoinedEvent/JoinedEvent";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <CreateEvent></CreateEvent>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/joined-event",
+        element: (
+          <PrivetRoute>
+            <JoinedEvent></JoinedEvent>
           </PrivetRoute>
         ),
       },

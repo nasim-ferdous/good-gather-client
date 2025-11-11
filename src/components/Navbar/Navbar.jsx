@@ -116,7 +116,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link
-                    to="/joined-events"
+                    to="/joined-event"
                     className="flex items-center gap-2 text-emerald-700 hover:text-emerald-900"
                   >
                     <FaRegCalendarCheck /> Joined Events
