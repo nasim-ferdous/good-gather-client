@@ -42,7 +42,7 @@ const EventCard = ({ event }) => {
           </span>
 
           <Link
-            to={`/event/${event._id}`}
+            to={`/event-detail/${event._id}`}
             className="btn bg-emerald-500 hover:bg-emerald-600 text-white btn-sm border-0"
           >
             View Details

@@ -3,11 +3,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+import "./CreateEvent.css";
 
 const CreateEvent = () => {
   const { user } = use(AuthContext);
   const [eventDate, setEventDate] = useState(null);
-  console.log(user.email);
+  const navigate = useNavigate();
 
   const handleCreateEvent = (e) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ const CreateEvent = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        navigate("/up-coming-event");
 
         toast.success("successfully created event");
       })
@@ -83,7 +86,6 @@ const CreateEvent = () => {
             </select>
           </div>
 
-        
           <div>
             <label className="label font-semibold text-emerald-700">
               Description
@@ -97,7 +99,6 @@ const CreateEvent = () => {
             ></textarea>
           </div>
 
-         
           <div>
             <label className="label font-semibold text-emerald-700">
               Thumbnail URL
@@ -111,7 +112,6 @@ const CreateEvent = () => {
             />
           </div>
 
-       
           <div>
             <label className="label font-semibold text-emerald-700">
               Location
@@ -125,7 +125,6 @@ const CreateEvent = () => {
             />
           </div>
 
-        
           <div>
             <label className="label font-semibold text-emerald-700">
               Event Date

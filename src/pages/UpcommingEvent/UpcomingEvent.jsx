@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
-import { IoLeaf } from "react-icons/io5";
-import { Link } from "react-router";
+
 import EventCard from "../../components/EventCard/EventCard";
 
 const UpcomingEvent = () => {

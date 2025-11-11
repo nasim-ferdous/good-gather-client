@@ -18,8 +18,7 @@ const Login = () => {
     console.log(email, password);
 
     signinUser(email, password)
-      .then((result) => {
-        const user = result.user;
+      .then(() => {
         toast.success("successfully Login");
         navigate(`${location.state ? location.state : "/"}`);
       })
@@ -30,8 +29,7 @@ const Login = () => {
   const handleGoogleSignIn = (e) => {
     e.preventDefault();
     googleSignIn()
-      .then((result) => {
-        const user = result.user;
+      .then(() => {
         toast.success("successfully Login");
         navigate(`${location.state ? location.state : "/"}`);
       })
@@ -63,7 +61,6 @@ const Login = () => {
               <label className="label">Email</label>
               <input
                 type="email"
-                // ref={emailRef}
                 name="email"
                 ref={emailRef}
                 className="input"

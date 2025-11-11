@@ -48,8 +48,7 @@ const Register = () => {
   };
   const handleGoogleSignIn = () => {
     googleSignIn()
-      .then((result) => {
-        console.log(result.user);
+      .then(() => {
         toast.success("successfully registered");
         navigate(`${location.state ? location.state : "/"}`);
       })
