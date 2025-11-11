@@ -39,9 +39,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-emerald-50 shadow-sm sticky top-0 z-50 px-4">
-      
       <div className="navbar-start">
-        
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -67,18 +65,15 @@ const Navbar = () => {
           </ul>
         </div>
 
-        
         <Link to="/" className="text-2xl font-bold text-emerald-700 ml-2">
           Good<span className="text-emerald-500">Gather</span>
         </Link>
       </div>
 
-    
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
 
-      
       <div className="navbar-end">
         {user ? (
           <div className="flex items-center space-x-2">
