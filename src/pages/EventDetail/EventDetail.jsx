@@ -50,11 +50,16 @@ const EventDetail = () => {
       body: JSON.stringify(joinData),
     })
       .then((res) => res.json())
-      .then(() => {
-        toast.success("successfully joined this event");
+      .then((data) => {
+        if (data.success) {
+          toast.success("successfully joined this event");
+        } else {
+          toast.error(data.message);
+        }
       })
       .catch((error) => {
         toast.error(error.message);
+        console.log(error);
       });
   };
 
@@ -63,7 +68,7 @@ const EventDetail = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto py-16 px-6 bg-emerald-100 min-h-screen rounded-2xl shadow-sm">
+    <div className="max-w-7xl mx-auto py-10 px-6 bg-emerald-100 min-h-screen rounded-2xl shadow-sm">
       <img
         src={event.thumbnail}
         alt={event.title}

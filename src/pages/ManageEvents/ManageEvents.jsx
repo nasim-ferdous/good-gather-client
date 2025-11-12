@@ -10,10 +10,15 @@ import Loading from "../../components/Loading/Loading";
 const ManageEvents = () => {
   const { user } = use(AuthContext);
   const [events, setEvents] = useState([]);
+  const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-events?email=${user.email}`)
+      fetch(`http://localhost:3000/my-events?email=${user.email}`, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           console.log(data.result);
@@ -23,7 +28,7 @@ const ManageEvents = () => {
           toast.error(error.message);
         });
     }
-  }, [user]);
+  }, [user, refetch]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -45,6 +50,7 @@ const ManageEvents = () => {
           .then((res) => res.json())
           .then((result) => {
             console.log(result);
+            setRefetch(!refetch);
             Swal.fire({
               title: "Deleted!",
               text: "Your event has been deleted.",
@@ -63,7 +69,7 @@ const ManageEvents = () => {
   }
 
   return (
-    <div className="min-h-screen bg-emerald-50 py-16 px-6">
+    <div className="min-h-screen bg-emerald-50 py-10 px-6">
       <h2 className="text-3xl font-bold text-center text-emerald-800 mb-10">
         Manage Your Events
       </h2>

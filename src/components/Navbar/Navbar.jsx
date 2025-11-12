@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { toast } from "react-toastify";
@@ -6,6 +6,18 @@ import { FaPlusCircle, FaRegCalendarCheck, FaTasks } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOutUser } = use(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
   const handleSignOut = () => {
     logOutUser()
       .then(() => {
@@ -88,7 +100,7 @@ const Navbar = () => {
                   <img
                     src={
                       user?.photoURL ||
-                      "https://img.icons8.com/office/40/user.png"
+                      "https://img.icons8.com/color/48/user.png"
                     }
                     alt="User"
                   />
@@ -123,6 +135,14 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <div className="divider my-1"></div>
+
+                <input
+                  onChange={(e) => handleTheme(e.target.checked)}
+                  type="checkbox"
+                  defaultChecked={localStorage.getItem("theme") === "dark"}
+                  className="toggle mb-2"
+                />
+
                 <li>
                   <button
                     onClick={handleSignOut}
