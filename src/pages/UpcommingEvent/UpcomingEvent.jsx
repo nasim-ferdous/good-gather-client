@@ -6,7 +6,7 @@ const UpcomingEvent = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    fetch("http://localhost:3000/events")
+    fetch("https://good-gather-server.vercel.app/events")
       .then((res) => res.json())
       .then((data) => {
         const date = new Date();
@@ -23,7 +23,7 @@ const UpcomingEvent = () => {
     e.preventDefault();
     const search_text = e.target.search.value;
     setLoading(true);
-    fetch(`http://localhost:3000/search?search=${search_text}`)
+    fetch(`https://good-gather-server.vercel.app/search?search=${search_text}`)
       .then((res) => res.json())
       .then((data) => {
         const date = new Date();
@@ -45,7 +45,9 @@ const UpcomingEvent = () => {
     const selectedType = e.target.type.value;
     setLoading(true);
 
-    fetch(`http://localhost:3000/filter?eventType=${selectedType}`)
+    fetch(
+      `https://good-gather-server.vercel.app/filter?eventType=${selectedType}`
+    )
       .then((res) => res.json())
       .then((data) => {
         const now = new Date();

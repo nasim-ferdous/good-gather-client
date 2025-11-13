@@ -13,7 +13,7 @@ const UpdateEvent = () => {
   const [eventDate, setEventDate] = useState(new Date());
 
   useEffect(() => {
-    fetch(`http://localhost:3000/events/${id}`)
+    fetch(`https://good-gather-server.vercel.app/events/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setEvent(data.result);
@@ -34,7 +34,7 @@ const UpdateEvent = () => {
       eventDate,
     };
 
-    fetch(`http://localhost:3000/events/${id}`, {
+    fetch(`https://good-gather-server.vercel.app/events/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(formData),

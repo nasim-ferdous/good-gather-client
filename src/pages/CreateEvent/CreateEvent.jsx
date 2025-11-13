@@ -25,7 +25,7 @@ const CreateEvent = () => {
       createdAt: new Date(),
     };
     console.log(formData);
-    fetch("http://localhost:3000/events", {
+    fetch("https://good-gather-server.vercel.app/events", {
       method: "POST",
       headers: {
         "content-type": "application/json",

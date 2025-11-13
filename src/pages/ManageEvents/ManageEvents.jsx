@@ -14,11 +14,14 @@ const ManageEvents = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-events?email=${user.email}`, {
-        headers: {
-          authorization: `Bearer ${user.accessToken}`,
-        },
-      })
+      fetch(
+        `https://good-gather-server.vercel.app/my-events?email=${user.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data.result);
@@ -41,7 +44,7 @@ const ManageEvents = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/events/${id}`, {
+        fetch(`https://good-gather-server.vercel.app/events/${id}`, {
           method: "DELETE",
           headers: {
             "content-type": "application/json",

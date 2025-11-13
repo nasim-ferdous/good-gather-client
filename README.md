@@ -2,7 +2,7 @@
 
 ### 🌐 Live Site URL
 
-👉 [https://good-gather.web.app](https://good-gather.web.app)
+👉 [https://regal-madeleine-5af8d9.netlify.app/](https://regal-madeleine-5af8d9.netlify.app/)
 
 ## 📖 Overview
 

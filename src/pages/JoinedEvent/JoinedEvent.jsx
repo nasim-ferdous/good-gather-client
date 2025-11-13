@@ -7,7 +7,7 @@ const JoinedEvent = () => {
   const [joined, setJoined] = useState([]);
   const { user } = use(AuthContext);
   useEffect(() => {
-    fetch(`http://localhost:3000/joined?email=${user.email}`, {
+    fetch(`https://good-gather-server.vercel.app/joined?email=${user.email}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
