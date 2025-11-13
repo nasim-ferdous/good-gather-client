@@ -67,7 +67,7 @@ const UpdateEvent = () => {
               name="title"
               defaultValue={event.title}
               required
-              className="input w-full bg-white dark:text-zinc-500 rounded-full focus:outline-emerald-200"
+              className="input w-full bg-white dark:text-zinc-900  rounded-full focus:outline-emerald-200"
               placeholder="Enter event title"
             />
           </div>
@@ -80,7 +80,7 @@ const UpdateEvent = () => {
               name="eventType"
               defaultValue={event.eventType}
               required
-              className="select w-full dark:text-zinc-500 bg-white rounded-full focus:outline-emerald-200"
+              className="select w-full dark:text-zinc-900  bg-white rounded-full focus:outline-emerald-200"
             >
               <option value="">Select event type</option>
               <option value="Cleanup">Cleanup</option>
@@ -100,7 +100,7 @@ const UpdateEvent = () => {
               defaultValue={event.description}
               required
               rows="4"
-              className="textarea w-full bg-white dark:text-zinc-500 rounded-2xl focus:outline-emerald-200"
+              className="textarea w-full bg-white dark:text-zinc-900  rounded-2xl focus:outline-emerald-200"
               placeholder="Write a short description of your event"
             ></textarea>
           </div>
@@ -113,7 +113,7 @@ const UpdateEvent = () => {
               name="thumbnail"
               defaultValue={event.thumbnail}
               required
-              className="input w-full bg-white dark:text-zinc-500 rounded-full focus:outline-emerald-200"
+              className="input w-full bg-white dark:text-zinc-900  rounded-full focus:outline-emerald-200"
               placeholder="https://example.com/image.jpg"
             />
           </div>
@@ -126,7 +126,7 @@ const UpdateEvent = () => {
               name="location"
               defaultValue={event.location}
               required
-              className="input w-full bg-white dark:text-zinc-500 rounded-full focus:outline-emerald-200"
+              className="input w-full bg-white dark:text-zinc-900  rounded-full focus:outline-emerald-200"
               placeholder="Enter event location"
             />
           </div>
@@ -139,7 +139,7 @@ const UpdateEvent = () => {
               selected={eventDate}
               onChange={(date) => setEventDate(date)}
               minDate={new Date()}
-              className="input w-full bg-white dark:text-zinc-500 rounded-full"
+              className="input w-full bg-white dark:text-zinc-900  rounded-full"
               placeholderText="Select event date"
               dateFormat="dd/MM/yyyy"
             />
