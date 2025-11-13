@@ -50,7 +50,6 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                // to="/abopt"
                 className="hover:text-emerald-900 transition"
               >
                 About Us

@@ -70,7 +70,6 @@ const UpcomingEvent = () => {
       <h2 className="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-10">
         Upcoming Events
       </h2>
-      {/* search */}
       <div className=" flex flex-col md:flex-row items-center justify-between mb-10 gap-x-20 gap-y-5">
         <form
           onSubmit={handleSearch}
@@ -82,16 +81,13 @@ const UpcomingEvent = () => {
             placeholder="Search event by title..."
             className="input grow bg-white border dark:placeholder-zinc-500 border-emerald-200 rounded-full px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
           />
-
           <button
             type="submit"
             className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full px-6 shadow-md transition-all"
           >
             {loading ? "Searching...." : "Search"}
           </button>
-          {/* filter */}
         </form>
-
         <form
           onSubmit={handleFilter}
           className="flex grow items-center gap-2 w-full md:w-[unset]"

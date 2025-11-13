@@ -85,14 +85,11 @@ const ManageEvents = () => {
               key={event._id}
               className="bg-white dark:bg-emerald-100  rounded-2xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 duration-300 flex flex-col h-[470px]"
             >
-              {/* Thumbnail */}
               <img
                 src={event.thumbnail}
                 alt={event.title}
                 className="w-full h-48 object-cover"
               />
-
-              {/* Card body */}
               <div className="p-5 flex flex-col justify-between grow">
                 <div className="space-y-3 grow">
                   <h3
@@ -123,8 +120,6 @@ const ManageEvents = () => {
                     {event.eventType}
                   </div>
                 </div>
-
-                {/* Buttons */}
                 <div className="flex justify-end gap-3 items-center  mt-auto">
                   <button
                     onClick={() => handleDelete(event._id)}

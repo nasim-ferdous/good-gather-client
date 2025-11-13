@@ -6,14 +6,14 @@ import { Link } from "react-router";
 const EventCard = ({ event }) => {
   return (
     <div className="card bg-white dark:bg-emerald-100 rounded-2xl shadow-md overflow-hidden hover:scale-105 hover:shadow-lg transition-transform duration-300 flex flex-col h-[480px]">
-      {/* Thumbnail */}
+      
       <img
         src={event.thumbnail}
         alt={event.title}
         className="w-full h-52 object-cover"
       />
 
-      {/* Card Body */}
+     
       <div className="p-5 flex flex-col justify-between grow">
         <div className="space-y-3 grow">
           {/* Title */}
@@ -21,13 +21,13 @@ const EventCard = ({ event }) => {
             {event.title}
           </h3>
 
-          {/* Location */}
+         
           <div className="flex items-center text-gray-500 text-sm">
             <FaMapMarkerAlt className="mr-2 text-emerald-600" />
             {event.location}
           </div>
 
-          {/* Date */}
+       
           <div className="flex items-center text-gray-500 text-sm">
             <FaCalendarAlt className="mr-2 text-emerald-600" />
             {new Date(event.eventDate).toLocaleDateString("en-GB", {
@@ -37,7 +37,7 @@ const EventCard = ({ event }) => {
             })}
           </div>
 
-          {/* Creator */}
+          
           <div className="flex items-center text-gray-500 text-sm">
             <span className="text-emerald-600 font-medium mr-1">
               Created by:
@@ -46,7 +46,7 @@ const EventCard = ({ event }) => {
           </div>
         </div>
 
-        {/* Bottom Section */}
+      
         <div className="flex justify-between items-center pt-4 mt-auto">
           <span className="inline-flex items-center px-3 py-1 text-sm font-medium bg-emerald-100 text-emerald-700 rounded-full">
             <IoLeaf className="mr-1" /> {event.eventType}

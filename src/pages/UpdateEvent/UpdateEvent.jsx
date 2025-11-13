@@ -58,7 +58,6 @@ const UpdateEvent = () => {
         </h2>
 
         <form onSubmit={handleUpdateEvent} className="space-y-5">
-          {/* Title */}
           <div>
             <label className="label font-semibold text-emerald-700">
               Event Title
@@ -73,7 +72,6 @@ const UpdateEvent = () => {
             />
           </div>
 
-          {/* Event Type */}
           <div>
             <label className="label font-semibold text-emerald-700">
               Event Type
@@ -93,8 +91,6 @@ const UpdateEvent = () => {
               <option value="Others">Others</option>
             </select>
           </div>
-
-          {/* Description */}
           <div>
             <label className="label font-semibold text-emerald-700">
               Description
@@ -108,8 +104,6 @@ const UpdateEvent = () => {
               placeholder="Write a short description of your event"
             ></textarea>
           </div>
-
-          {/* Thumbnail */}
           <div>
             <label className="label font-semibold text-emerald-700">
               Thumbnail URL
@@ -123,8 +117,6 @@ const UpdateEvent = () => {
               placeholder="https://example.com/image.jpg"
             />
           </div>
-
-          {/* Location */}
           <div>
             <label className="label font-semibold text-emerald-700">
               Location
@@ -138,8 +130,6 @@ const UpdateEvent = () => {
               placeholder="Enter event location"
             />
           </div>
-
-          {/* Date Picker */}
           <div>
             <label className="label font-semibold text-emerald-700">
               Event Date
@@ -154,8 +144,6 @@ const UpdateEvent = () => {
               dateFormat="dd/MM/yyyy"
             />
           </div>
-
-          {/* Submit Button */}
           <button
             type="submit"
             className="btn w-full text-white mt-6 rounded-full bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700"
