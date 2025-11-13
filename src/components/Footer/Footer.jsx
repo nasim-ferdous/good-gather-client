@@ -10,7 +10,7 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <div className="bg-emerald-50 text-emerald-800 border-t border-emerald-100 ">
+    <div className="bg-emerald-50 dark:bg-zinc-800 text-emerald-800 border-t border-emerald-100 dark:border-zinc-500 ">
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div>
           <Link to="/" className="text-2xl font-bold text-emerald-700">
@@ -42,7 +42,7 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                // to="/create-event"
+                to="/create-event"
                 className="hover:text-emerald-900 transition"
               >
                 Create Event
@@ -73,7 +73,7 @@ const Footer = () => {
               placeholder="Enter your email"
               className="w-full px-3 py-2 rounded-l-2xl border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
-            <button className="btn bg-emerald-500 text-white px-4 py-2 rounded-r-2xl hover:bg-emerald-600 transition">
+            <button className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-2 rounded-r-2xl  transition">
               <FaEnvelope />
             </button>
           </div>
@@ -106,7 +106,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-emerald-100 py-4 text-center text-sm text-emerald-600">
+      <div className="border-t border-emerald-100 dark:border-zinc-500 py-4 text-center text-sm text-emerald-600">
         © {new Date().getFullYear()} GoodGather — Crafted with Love for
         community good.
       </div>

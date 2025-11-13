@@ -1,16 +1,79 @@
-# React + Vite
+# 🌿 Good Gather - Event Management Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 🌐 Live Site URL
 
-Currently, two official plugins are available:
+👉 [https://good-gather.web.app](https://good-gather.web.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📖 Overview
 
-## React Compiler
+**Good Gather** is a community-driven event management platform where users can create, manage, and participate in social, environmental, and charity-based events.  
+It promotes positive social action by connecting people who care about making a difference — whether it’s a cleanup drive, a tree plantation, or a charity donation.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Core Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🗓️ **Create, Update & Manage Events:**  
+  Users can add new events, edit details, and manage their personal events with ease.
+
+- 🔍 **Advanced Search & Filtering:**  
+  Quickly find events by category or name using flexible query-based search.
+
+- 🔐 **User Authentication (Firebase):**  
+  Secure sign-up, login, and logout functionality to protect user accounts.
+
+- 📅 **Upcoming Events Section:**  
+  Displays only events with future dates — ensuring users see what’s relevant.
+
+- 🧩 **Dynamic Event Details Page:**  
+  Each event includes complete information such as title, date, location, and creator details.
+
+- 🎨 **Modern Responsive UI:**  
+  Built with **React** and **Tailwind CSS**, ensuring a smooth, mobile-friendly design.
+
+- ⚙️ **Fully Functional Backend:**  
+  Powered by **Express.js** and **MongoDB**, handling secure CRUD operations and API endpoints.
+
+---
+
+## 🛠️ Tech Stack
+
+### 🧭 Frontend
+
+- React.js
+- React Router DOM
+- Tailwind CSS
+- Firebase Authentication
+- React Toastify
+- React Icons
+- SweetAlert2
+
+### ⚙️ Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- dotenv for environment management
+- CORS & JWT for authentication and security
+
+---
+
+🌍 API Endpoints Overview
+
+Method Endpoint Description
+GET /events Get all events
+GET /events/:id Get single event by ID
+POST /events Create new event
+PUT /events/:id Update event
+DELETE /events/:id Delete event
+GET /search?search= Search events by title
+GET /filter?eventType= Filter events by type
+GET /my-events?email= Get events created by specific user
+
+👨‍💻 Developer
+
+Developed by: Nasim Ferdous (NFS)
+💚 "Connecting people for a better tomorrow — one event at a time."
+📧 Email: nasimferdouspust@gmail.com
+
+📍 Bangladesh

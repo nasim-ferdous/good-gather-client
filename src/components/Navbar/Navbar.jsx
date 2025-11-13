@@ -33,7 +33,7 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/"
-          className="text-emerald-700 font-medium hover:text-emerald-900"
+          className="text-emerald-700 dark:text-emerald-500 font-medium hover:text-emerald-900"
         >
           Home
         </NavLink>
@@ -41,7 +41,7 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/up-coming-event"
-          className="text-emerald-700 font-medium hover:text-emerald-900"
+          className="text-emerald-700 dark:text-emerald-500 font-medium hover:text-emerald-900"
         >
           Upcoming Events
         </NavLink>
@@ -50,7 +50,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-emerald-50 shadow-sm sticky top-0 z-50 px-4">
+    <div className="navbar bg-emerald-50 dark:bg-zinc-700 shadow-sm sticky top-0 z-50 px-4">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -77,8 +77,12 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <Link to="/" className="text-2xl font-bold text-emerald-700 ml-2">
-          Good<span className="text-emerald-500">Gather</span>
+        <Link
+          to="/"
+          className="text-2xl font-bold text-emerald-700 dark:text-emerald-600 ml-2"
+        >
+          Good
+          <span className="text-emerald-500 dark:text-emerald-400">Gather</span>
         </Link>
       </div>
 
@@ -88,15 +92,15 @@ const Navbar = () => {
 
       <div className="navbar-end">
         {user ? (
-          <div className="flex items-center space-x-2">
-            <div className="dropdown dropdown-end">
+          <div className="flex  items-center space-x-2">
+            <div className="dropdown dropdown-end ">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar tooltip tooltip-bottom"
+                className="btn btn-ghost  btn-circle avatar tooltip tooltip-bottom"
                 data-tip={user.displayName}
               >
-                <div className="w-10 rounded-full border border-emerald-400">
+                <div className="w-10  rounded-full border border-emerald-400">
                   <img
                     src={
                       user?.photoURL ||
@@ -108,12 +112,12 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-white rounded-xl mt-3 p-3 shadow-md w-52 border border-emerald-100"
+                className="menu menu-sm dropdown-content bg-emerald-50 dark:bg-zinc-600 rounded-xl mt-3 p-3 shadow-md w-52 border border-emerald-100"
               >
                 <li>
                   <Link
                     to="/create-event"
-                    className="flex items-center gap-2 text-emerald-700 hover:text-emerald-900"
+                    className="flex items-center gap-2 text-emerald-700 hover:text-emerald-900 dark:text-emerald-400 dark:hover:text-emerald-600"
                   >
                     <FaPlusCircle /> Create Event
                   </Link>
@@ -121,7 +125,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     to="/manage-event"
-                    className="flex items-center gap-2 text-emerald-700 hover:text-emerald-900"
+                    className="flex items-center gap-2 text-emerald-700 hover:text-emerald-900 dark:text-emerald-400 dark:hover:text-emerald-600"
                   >
                     <FaTasks /> Manage Events
                   </Link>
@@ -129,7 +133,7 @@ const Navbar = () => {
                 <li>
                   <Link
                     to="/joined-event"
-                    className="flex items-center gap-2 text-emerald-700 hover:text-emerald-900"
+                    className="flex items-center gap-2 text-emerald-700 hover:text-emerald-900 dark:text-emerald-400 dark:hover:text-emerald-600"
                   >
                     <FaRegCalendarCheck /> Joined Events
                   </Link>
@@ -146,7 +150,7 @@ const Navbar = () => {
                 <li>
                   <button
                     onClick={handleSignOut}
-                    className="bg-emerald-500 text-white rounded-lg py-2 hover:bg-emerald-600 transition"
+                    className="bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-lg py-2  transition"
                   >
                     Logout
                   </button>
@@ -155,16 +159,16 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div className="flex gap-2">
+          <div className="flex gap-1 md:gap-2">
             <Link
               to="/login"
-              className="btn bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-6"
+              className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full p-3   md:p-6"
             >
               Login
             </Link>
             <Link
               to="/register"
-              className="btn bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-6"
+              className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full p-3 md:p-6"
             >
               Register
             </Link>

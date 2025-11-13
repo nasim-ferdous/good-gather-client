@@ -34,7 +34,7 @@ const Gallery = () => {
     },
   ];
   return (
-    <div className="bg-emerald-100 py-10 px-6">
+    <div className="bg-emerald-100 dark:bg-zinc-800 py-10 px-6">
       <h2 className="text-3xl font-bold text-center text-emerald-800 mb-10">
         Moments of GoodGather
       </h2>

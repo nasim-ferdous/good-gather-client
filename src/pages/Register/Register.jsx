@@ -59,7 +59,7 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center py-10">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <div className="card bg-base-100 dark:bg-emerald-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <h1 className="text-3xl text-center text-emerald-700 font-bold">
             Register Now!
@@ -155,7 +155,7 @@ const Register = () => {
             </fieldset>
           </form>
 
-          <p>
+          <p className="dark:text-zinc-500">
             Already registered? please{" "}
             <Link to={"/login"} className="text-emerald-600 font-bold">
               Signin

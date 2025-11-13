@@ -109,7 +109,7 @@ const EventDetail = () => {
 
         <button
           onClick={handleJoinEvent}
-          className="btn bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-full"
+          className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-6 py-2 rounded-full"
         >
           Join Event
         </button>

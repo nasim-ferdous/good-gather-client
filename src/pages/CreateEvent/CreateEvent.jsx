@@ -44,7 +44,7 @@ const CreateEvent = () => {
       });
   };
   return (
-    <div className="card border border-gray-200 bg-emerald-50 w-full max-w-2xl mx-auto my-12 shadow-2xl rounded-2xl">
+    <div className="card border border-gray-200 bg-emerald-50 dark:bg-emerald-100 w-full max-w-2xl mx-auto my-12 shadow-2xl rounded-2xl">
       <div className="card-body p-8">
         <h2 className="text-3xl font-bold text-center mb-6 text-emerald-800">
           Create New Event
@@ -59,7 +59,7 @@ const CreateEvent = () => {
               type="text"
               name="title"
               required
-              className="input w-full bg-white rounded-full focus:outline-emerald-200"
+              className="input w-full bg-white dark:placeholder-zinc-500 rounded-full focus:outline-emerald-200"
               placeholder="Enter event title"
             />
           </div>
@@ -72,7 +72,7 @@ const CreateEvent = () => {
               defaultValue={""}
               name="eventType"
               required
-              className="select w-full bg-white rounded-full focus:outline-emerald-200"
+              className="select w-full dark:text-zinc-500 bg-white rounded-full focus:outline-emerald-200"
             >
               <option value="" disabled>
                 Select event type
@@ -94,7 +94,7 @@ const CreateEvent = () => {
               name="description"
               required
               rows="4"
-              className="textarea w-full bg-white rounded-2xl focus:outline-emerald-200"
+              className="textarea dark:placeholder-zinc-500 w-full bg-white rounded-2xl focus:outline-emerald-200"
               placeholder="Write a short description of your event"
             ></textarea>
           </div>
@@ -107,7 +107,7 @@ const CreateEvent = () => {
               type="url"
               name="thumbnail"
               required
-              className="input w-full bg-white rounded-full focus:outline-emerald-200"
+              className="input w-full dark:placeholder-zinc-500 bg-white rounded-full focus:outline-emerald-200"
               placeholder="https://example.com/image.jpg"
             />
           </div>
@@ -120,7 +120,7 @@ const CreateEvent = () => {
               type="text"
               name="location"
               required
-              className="input w-full bg-white rounded-full focus:outline-emerald-200"
+              className="input dark:placeholder-zinc-500 w-full bg-white rounded-full focus:outline-emerald-200"
               placeholder="Enter event location"
             />
           </div>
@@ -134,7 +134,7 @@ const CreateEvent = () => {
               selected={eventDate}
               onChange={(date) => setEventDate(date)}
               minDate={new Date()}
-              className="input w-full bg-white rounded-full"
+              className="input dark:placeholder-zinc-500 w-full bg-white rounded-full"
               placeholderText="Select event date"
               dateFormat="dd/MM/yyyy"
             />

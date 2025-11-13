@@ -80,12 +80,12 @@ const UpcomingEvent = () => {
             type="search"
             name="search"
             placeholder="Search event by title..."
-            className="input grow bg-white border border-emerald-200 rounded-full px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            className="input grow bg-white border dark:placeholder-zinc-500 border-emerald-200 rounded-full px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
           />
 
           <button
             type="submit"
-            className="btn bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-6 shadow-md transition-all"
+            className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full px-6 shadow-md transition-all"
           >
             {loading ? "Searching...." : "Search"}
           </button>
@@ -99,7 +99,7 @@ const UpcomingEvent = () => {
           <select
             type="submit"
             name="type"
-            className="select grow bg-white border border-emerald-200 rounded-full px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            className="select grow bg-white border border-emerald-200 dark:text-zinc-500 rounded-full px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
           >
             <option value="All">All Types</option>
             <option value="Cleanup">Cleanup</option>
@@ -111,7 +111,7 @@ const UpcomingEvent = () => {
           </select>
           <button
             type="submit"
-            className="btn bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-6 shadow-md transition-all"
+            className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full px-6 shadow-md transition-all"
           >
             {loading ? "Searching...." : "Search"}
           </button>

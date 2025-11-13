@@ -69,7 +69,7 @@ const ManageEvents = () => {
   }
 
   return (
-    <div className="min-h-screen bg-emerald-50 py-10 px-6">
+    <div className="min-h-screen bg-emerald-50 dark:bg-zinc-800 py-10 px-6">
       <h2 className="text-3xl font-bold text-center text-emerald-800 mb-10">
         Manage Your Events
       </h2>
@@ -83,31 +83,61 @@ const ManageEvents = () => {
           {events.map((event) => (
             <div
               key={event._id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden"
+              className="bg-white dark:bg-emerald-100  rounded-2xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 duration-300 flex flex-col h-[470px]"
             >
+              {/* Thumbnail */}
               <img
                 src={event.thumbnail}
                 alt={event.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-5 space-y-3">
-                <h3 className="text-lg font-semibold text-emerald-800">
-                  {event.title}
-                </h3>
-                <p className="text-gray-500 text-sm">{event.location}</p>
-                <div className="flex justify-between pt-3">
-                  <Link
-                    to={`/update-event/${event._id}`}
-                    className="btn btn-sm bg-emerald-500 hover:bg-emerald-600 text-white rounded-full"
+
+              {/* Card body */}
+              <div className="p-5 flex flex-col justify-between grow">
+                <div className="space-y-3 grow">
+                  <h3
+                    className="text-lg font-semibold text-emerald-800 leading-snug min-h-[50px] line-clamp-2"
+                    title={event.title}
                   >
-                    Update
-                  </Link>
+                    {event.title}
+                  </h3>
+
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <FaMapMarkerAlt className="mr-2 text-emerald-600" />
+                    <span className="truncate">{event.location}</span>
+                  </div>
+
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <FaCalendarAlt className="mr-2 text-emerald-600" />
+                    {new Date(event.eventDate).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </div>
+
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <span className="text-emerald-600 font-medium mr-1">
+                      Event-Type:
+                    </span>
+                    {event.eventType}
+                  </div>
+                </div>
+
+                {/* Buttons */}
+                <div className="flex justify-end gap-3 items-center  mt-auto">
                   <button
                     onClick={() => handleDelete(event._id)}
-                    className="btn btn-sm bg-red-500 hover:bg-red-600 text-white rounded-full"
+                    className="btn btn-sm bg-red-500 hover:bg-red-600 text-white rounded-full px-5"
                   >
                     Delete
                   </button>
+                  <Link
+                    to={`/update-event/${event._id}`}
+                    className="btn btn-sm bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full px-5"
+                  >
+                    Update
+                  </Link>
                 </div>
               </div>
             </div>

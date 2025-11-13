@@ -10,10 +10,10 @@
   font-family: "Play", sans-serif;
 }
 
-/* .navbar .active {
-  color: crimson;
+.navbar .active {
+  color: rgb(12, 76, 78);
   font-weight: bold;
   border: 1px solid #cac8c8ff;
   border-radius: 20px;
-  background: rgb(243, 226, 226);
-} */
+  background: rgb(132, 179, 187);
+}
