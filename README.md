@@ -69,6 +69,87 @@ DELETE /events/:id Delete event
 GET /search?search= Search events by title
 GET /filter?eventType= Filter events by type
 GET /my-events?email= Get events created by specific user
+---
+
+📦 Installation & Setup Guide
+🛠️ Prerequisites
+
+Before running the project, make sure you have installed:
+
+Node.js (v16+ recommended)
+
+npm or yarn
+
+MongoDB (local or Atlas)
+
+Git
+---
+⚙️ Frontend Installation (Client Side)
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/good-gather.git
+
+# Go inside the project folder
+cd good-gather
+
+# Install dependencies
+npm install
+
+# Create .env file and add Firebase keys
+VITE_apiKey=YOUR_API_KEY
+VITE_authDomain=YOUR_AUTH_DOMAIN
+VITE_projectId=YOUR_PROJECT_ID
+VITE_storageBucket=YOUR_STORAGE_BUCKET
+VITE_messagingSenderId=YOUR_SENDER_ID
+VITE_appId=YOUR_APP_ID
+
+# Run the project
+npm run dev
+
+---
+🗄️ Backend Installation (Server Side)
+# Clone the backend repo (if separate)
+git clone https://github.com/YOUR_USERNAME/good-gather-server.git
+
+# Move into folder
+cd good-gather-server
+
+# Install backend dependencies
+npm install
+
+✨ Create a .env file
+PORT=3000
+DB_USER=your_mongodb_username
+DB_PASS=your_mongodb_password
+JWT_SECRET=your_jwt_secret
+
+---
+🔧 Backend Dependencies Used
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^5.7.0",
+    "nodemon": "^3.0.1"
+  }
+}
+---
+🎨 Frontend Dependencies Used
+{
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.0",
+    "firebase": "^10.0.0",
+    "react-icons": "^4.9.0",
+    "react-toastify": "^9.1.2",
+    "sweetalert2": "^11.7.3",
+    "axios": "^1.4.0",
+    "tailwindcss": "^3.3.2",
+    "daisyui": "^3.0.0"
+  }
+}
 
 👨‍💻 Developer
 
