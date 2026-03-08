@@ -1,19 +1,43 @@
-@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
+  themes:
+    light --default,
+    dark --prefersdark;
 }
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-* {
-  font-family: "Play", sans-serif;
+:root {
+  --font-sans: "Plus Jakarta Sans", sans-serif;
 }
 
+body {
+  /* Using Slate-800 for Light and Slate-200 for Dark 
+     is much easier on the eyes than pure Black/White */
+  @apply text-slate-800 dark:text-slate-100 antialiased tracking-tight;
+}
+
+/* 2. The "Glassmorphism" Card 
+   Use this class on your Project Cards or Containers */
+.glass-card {
+  @apply bg-white/40 dark:bg-slate-900/40 
+         backdrop-blur-md 
+         border border-white/20 dark:border-slate-700/50 
+         shadow-xl dark:shadow-2xl dark:shadow-black/50
+         rounded-2xl transition-all duration-300 hover:scale-[1.01];
+}
+
+/* 3. Professional Active Navigation Link */
 .navbar .active {
-  color: rgb(12, 76, 78);
-  font-weight: bold;
-  border: 1px solid #cac8c8ff;
-  border-radius: 20px;
-  background: rgb(132, 179, 187);
+  /* Matches the Teal accent from your MainLayout selection color */
+  @apply bg-teal-600/10 dark:bg-teal-500/20 
+         text-teal-700 dark:text-teal-300 
+         font-bold border border-teal-600/20 dark:border-teal-400/30
+         px-4 py-2 rounded-xl transition-all duration-300;
+}
+
+/* 4. Smooth scroll for a premium feel */
+html {
+  scroll-behavior: smooth;
 }

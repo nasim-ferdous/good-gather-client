@@ -1,11 +1,12 @@
-import React, { use, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { signinUser, googleSignIn, forgetPasswordUser } = use(AuthContext);
+  const { signinUser, googleSignIn, forgetPasswordUser } =
+    React.use(AuthContext);
   const [show, setShow] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,134 +16,134 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
 
     signinUser(email, password)
       .then(() => {
-        toast.success("successfully Login");
-        navigate(`${location.state ? location.state : "/"}`);
+        toast.success("Successfully logged in");
+        navigate(location.state || "/");
       })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+      .catch((error) => toast.error(error.message));
   };
-  const handleGoogleSignIn = (e) => {
-    e.preventDefault();
+
+  const handleGoogleSignIn = () => {
     googleSignIn()
       .then(() => {
-        toast.success("successfully Login");
-        navigate(`${location.state ? location.state : "/"}`);
+        toast.success("Successfully logged in");
+        navigate(location.state || "/");
       })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+      .catch((error) => toast.error(error.message));
   };
+
   const handleForgetPassword = () => {
-    console.log(emailRef.current.value);
     const email = emailRef.current.value;
+    if (!email) return toast.error("Please enter your email first");
     forgetPasswordUser(email)
-      .then(() => {
-        toast.success("Check your Email");
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+      .then(() => toast.success("Check your email for reset instructions"))
+      .catch((error) => toast.error(error.message));
   };
+
+  const inputClass =
+    "w-full px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none transition-all";
+  const labelClass =
+    "block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2";
+
   return (
-    <div className="flex justify-center items-center py-10">
-      <div className="card bg-base-100 dark:bg-emerald-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <div className="card-body">
-          <h1 className="text-3xl text-center text-emerald-700  font-bold">
-            Login now!
+    <div className="min-h-screen flex items-center justify-center  p-6 transition-colors duration-300">
+      <title>Login</title>
+      <div className="flex flex-col lg:flex-row w-full max-w-5xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
+        {/* Left Side: Login Form */}
+        <div className="w-full lg:w-1/2 p-8 md:p-12">
+          <h1 className="text-3xl font-black text-slate-900 dark:text-white mb-8">
+            Welcome <span className="text-emerald-600">Back!</span>
           </h1>
-          <form onSubmit={handleLogin}>
-            <fieldset className="fieldset">
-              {/* email */}
-              <label className="label">Email</label>
+
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <label className={labelClass}>Email Address</label>
               <input
                 type="email"
                 name="email"
                 ref={emailRef}
-                className="input"
-                placeholder="Email"
+                className={inputClass}
+                placeholder="Your Email"
                 required
               />
-              {/* password */}
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <label className={labelClass}>Password</label>
+                <button
+                  type="button"
+                  onClick={handleForgetPassword}
+                  className="text-xs font-bold text-emerald-600 hover:underline"
+                >
+                  Forgot password?
+                </button>
+              </div>
               <div className="relative">
-                <label className="label">Password</label>
                 <input
                   type={show ? "text" : "password"}
                   name="password"
-                  className="input"
-                  placeholder="Password"
+                  className={inputClass}
+                  placeholder="••••••••"
                   required
                 />
                 <button
-                  onClick={() => setShow(!show)}
                   type="button"
-                  className="btn btn-xs bg-emerald-600 hover:bg-emerald-700 absolute top-6 right-5"
+                  onClick={() => setShow(!show)}
+                  className="absolute right-4 top-3.5 text-slate-400 hover:text-emerald-600"
                 >
-                  {show ? <LuEye /> : <LuEyeClosed />}
+                  {show ? <LuEye size={20} /> : <LuEyeClosed size={20} />}
                 </button>
               </div>
-              <div>
-                <a
-                  onClick={handleForgetPassword}
-                  type="button"
-                  className="link link-hover text-emerald-500"
-                >
-                  Forgot password?
-                </a>
-              </div>
-              <button
-                type="submit"
-                className="btn bg-emerald-600 text-white hover:bg-emerald-700 border-none"
-              >
-                Login
-              </button>
-              <button
-                type="button"
-                onClick={handleGoogleSignIn}
-                className="btn bg-emerald-500 text-black border-[#e5e5e5]"
-              >
-                <svg
-                  aria-label="Google logo"
-                  width="16"
-                  height="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <g>
-                    <path d="m0 0H512V512H0" fill="#fff"></path>
-                    <path
-                      fill="#34a853"
-                      d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                    ></path>
-                    <path
-                      fill="#4285f4"
-                      d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                    ></path>
-                    <path
-                      fill="#fbbc02"
-                      d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                    ></path>
-                    <path
-                      fill="#ea4335"
-                      d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                    ></path>
-                  </g>
-                </svg>
-                Login with Google
-              </button>
-            </fieldset>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-slate-900 hover:bg-slate-900/50 dark:bg-white text-white dark:text-slate-900 dark:hover:bg-slate-200 hover:cursor-pointer font-bold py-4 rounded-xl shadow-lg shadow-emerald-600/20 transition-all"
+            >
+              Login
+            </button>
+
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              className="w-full flex items-center justify-center gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-emerald-600 py-3.5 rounded-xl font-semibold transition-all text-slate-700 dark:text-slate-300"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                alt="Google"
+                className="w-5 h-5"
+              />
+              Sign in with Google
+            </button>
           </form>
 
-          <p className="dark:text-zinc-500">
-            New here? please{" "}
-            <Link to={"/register"} className="text-emerald-600 font-bold">
-              Register
+          <p className="mt-8 text-center text-slate-600 dark:text-slate-400">
+            New here?{" "}
+            <Link
+              to="/register"
+              className="text-emerald-600 font-bold hover:underline"
+            >
+              Create an account
             </Link>
           </p>
+        </div>
+
+        {/* Right Side: Decorative Welcome Note */}
+        <div className="hidden lg:flex w-1/2 bg-emerald-600 p-12 flex-col justify-center text-white">
+          <h2 className="text-4xl font-black mb-6">Join the Movement!</h2>
+          <p className="text-emerald-100 text-lg leading-relaxed">
+            Log in to discover and manage events in your community. Every action
+            you take helps create a better, more sustainable world for everyone.
+          </p>
+          <div className="mt-12 bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
+            <p className="font-semibold italic">
+              "Unity is strength... when there is teamwork and collaboration,
+              wonderful things can be achieved."
+            </p>
+          </div>
         </div>
       </div>
     </div>

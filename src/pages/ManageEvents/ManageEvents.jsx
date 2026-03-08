@@ -1,15 +1,15 @@
 import React, { use, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { toast } from "react-toastify";
-import { FaCalendarAlt, FaEdit, FaMapMarkerAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaEdit, FaMapMarkerAlt, FaTrash } from "react-icons/fa";
 import { IoLeaf } from "react-icons/io5";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
-import Loading from "../../components/Loading/Loading";
+import ManageSkeleton from "./ManageSkeleton";
 
 const ManageEvents = () => {
   const { user } = use(AuthContext);
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(null);
   const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
@@ -20,11 +20,10 @@ const ManageEvents = () => {
           headers: {
             authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.result);
           setEvents(data.result);
         })
         .catch((error) => {
@@ -67,81 +66,79 @@ const ManageEvents = () => {
     });
   };
 
-  if (!events) {
-    return <Loading></Loading>;
-  }
-
   return (
-    <div className="min-h-screen bg-emerald-50 dark:bg-zinc-800 py-10 px-6">
-      <h2 className="text-3xl font-bold text-center text-emerald-800 mb-10">
-        Manage Your Events
-      </h2>
+    <div className="min-h-screen  py-10 px-6 transition-colors duration-300">
+      <title>Manage events</title>
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white text-center mb-16">
+          Manage Your <span className="text-emerald-600">Events</span>
+        </h2>
 
-      {events.length === 0 ? (
-        <p className="text-center text-gray-500">
-          You haven’t created any events yet.
-        </p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {events.map((event) => (
-            <div
-              key={event._id}
-              className="bg-white dark:bg-emerald-100  rounded-2xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 duration-300 flex flex-col h-[470px]"
-            >
-              <img
-                src={event.thumbnail}
-                alt={event.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-5 flex flex-col justify-between grow">
-                <div className="space-y-3 grow">
-                  <h3
-                    className="text-lg font-semibold text-emerald-800 leading-snug min-h-[50px] line-clamp-2"
-                    title={event.title}
-                  >
+        {!events ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[...Array(8)].map((_, i) => (
+              <ManageSkeleton key={i} />
+            ))}
+          </div>
+        ) : events.length === 0 ? (
+          <div className="text-center py-20 text-slate-500">
+            You haven’t created any events yet.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {events.map((event) => (
+              <div
+                key={event._id}
+                className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-all"
+              >
+                {/* Reduced image height */}
+                <img
+                  src={event.thumbnail}
+                  alt={event.title}
+                  className="w-full h-36 object-cover"
+                />
+
+                <div className="p-4 flex flex-col flex-grow">
+                  {/* Tighter font and spacing */}
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3 line-clamp-1">
                     {event.title}
                   </h3>
 
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <FaMapMarkerAlt className="mr-2 text-emerald-600" />
-                    <span className="truncate">{event.location}</span>
+                  <div className="space-y-1.5 mb-4 text-xs text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center gap-2">
+                      <FaMapMarkerAlt className="text-emerald-500" />{" "}
+                      {event.location}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <FaCalendarAlt className="text-emerald-500" />{" "}
+                      {new Date(event.eventDate).toLocaleDateString("en-GB")}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <IoLeaf className="text-emerald-500" /> {event.eventType}
+                    </div>
                   </div>
 
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <FaCalendarAlt className="mr-2 text-emerald-600" />
-                    {new Date(event.eventDate).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })}
+                  {/* Buttons with smaller padding */}
+                  <div className="mt-auto flex gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
+                    <button
+                      onClick={() => handleDelete(event._id)}
+                      className="flex-1 bg-red-50 hover:bg-red-100 text-red-600 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-1.5"
+                    >
+                      <FaTrash size={12} /> Delete
+                    </button>
+                    <Link
+                      to={`/update-event/${event._id}`}
+                      className="flex-1 bg-slate-900 hover:bg-slate-900/50 dark:bg-white text-white dark:text-slate-900 dark:hover:bg-slate-200 hover:cursor-pointer py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-1.5"
+                    >
+                      <FaEdit size={12} /> Update
+                    </Link>
                   </div>
-
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <span className="text-emerald-600 font-medium mr-1">
-                      Event-Type:
-                    </span>
-                    {event.eventType}
-                  </div>
-                </div>
-                <div className="flex justify-end gap-3 items-center  mt-auto">
-                  <button
-                    onClick={() => handleDelete(event._id)}
-                    className="btn btn-sm bg-red-500 hover:bg-red-600 text-white rounded-full px-5"
-                  >
-                    Delete
-                  </button>
-                  <Link
-                    to={`/update-event/${event._id}`}
-                    className="btn btn-sm bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full px-5"
-                  >
-                    Update
-                  </Link>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

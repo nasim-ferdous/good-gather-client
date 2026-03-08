@@ -1,14 +1,15 @@
 import React, { use, useEffect, useState } from "react";
-import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 import { IoLeaf } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../provider/AuthPRovider";
 import Loading from "../../components/Loading/Loading";
+import DetailSkeleton from "./DetailSkeleton";
 
 const EventDetail = () => {
   const { id } = useParams();
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState(null);
   const { user } = use(AuthContext);
   const navigate = useNavigate();
 
@@ -16,7 +17,6 @@ const EventDetail = () => {
     fetch(`https://good-gather-server.vercel.app/events/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.result);
         setEvent(data.result);
       })
       .catch((error) => {
@@ -53,66 +53,71 @@ const EventDetail = () => {
       .then((data) => {
         if (data.success) {
           toast.success("successfully joined this event");
+          navigate("/joined-event");
         } else {
           toast.error(data.message);
         }
       })
       .catch((error) => {
         toast.error(error.message);
-        console.log(error);
       });
   };
 
-  if (!event || !event.title) {
-    return <Loading></Loading>;
-  }
+  if (!event) return <DetailSkeleton />;
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-6 bg-emerald-100 min-h-screen rounded-2xl shadow-sm">
-      <img
-        src={event.thumbnail}
-        alt={event.title}
-        className="w-full h-80 object-cover rounded-xl mb-8"
-      />
+    <div className="min-h-screen py-10 px-6 transition-colors">
+      <title>Event Detail</title>
+      <div className="max-w-7xl mx-auto bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+        {/* Header Image */}
+        <img
+          src={event.thumbnail}
+          alt={event.title}
+          className="w-full h-80 object-cover"
+        />
 
-      <h1 className="text-3xl md:text-4xl font-bold text-emerald-800 mb-4">
-        {event.title}
-      </h1>
+        <div className="p-8 md:p-12">
+          <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-6">
+            {event.title}
+          </h1>
 
-      <div className="flex flex-wrap gap-6 text-gray-700 mb-6">
-        <div className="flex items-center">
-          <FaMapMarkerAlt className="mr-2 text-emerald-600" />
-          {event.location}
+          {/* Info Bar */}
+          <div className="flex flex-wrap gap-4 mb-8">
+            {[
+              { icon: <FaMapMarkerAlt />, text: event.location },
+              {
+                icon: <FaCalendarAlt />,
+                text: new Date(event.eventDate).toLocaleDateString("en-GB"),
+              },
+              { icon: <IoLeaf />, text: event.eventType },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 bg-slate-100 dark:bg-slate-700 px-4 py-2 rounded-full text-slate-700 dark:text-slate-300 text-sm font-medium"
+              >
+                <span className="text-emerald-500">{item.icon}</span>{" "}
+                {item.text}
+              </div>
+            ))}
+          </div>
+
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg mb-10">
+            {event.description || "No detailed description provided."}
+          </p>
+
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-8 border-t border-slate-100 dark:border-slate-700">
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium">
+              <FaUser /> Created by: {event.createdBy}
+            </div>
+
+            <button
+              onClick={handleJoinEvent}
+              className="w-full sm:w-auto bg-slate-900 hover:bg-slate-900/50 dark:bg-white text-white dark:text-slate-900 dark:hover:bg-slate-200 hover:cursor-pointer font-bold px-10 py-4 rounded-2xl transition-all shadow-lg shadow-emerald-600/20"
+            >
+              Join This Event
+            </button>
+          </div>
         </div>
-        <div className="flex items-center">
-          <FaCalendarAlt className="mr-2 text-emerald-600" />
-          {new Date(event.eventDate).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })}
-        </div>
-        <div className="flex items-center">
-          <IoLeaf className="mr-2 text-emerald-600" />
-          {event.eventType}
-        </div>
-      </div>
-
-      <p className="text-gray-600 leading-relaxed mb-8">
-        {event.description || "No detailed description provided."}
-      </p>
-
-      <div className="flex justify-between items-center">
-        <span className="text-emerald-700 font-medium">
-          Created by: {event.createdBy}
-        </span>
-
-        <button
-          onClick={handleJoinEvent}
-          className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-6 py-2 rounded-full"
-        >
-          Join Event
-        </button>
       </div>
     </div>
   );

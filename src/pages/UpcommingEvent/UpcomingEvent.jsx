@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "../../components/EventCard/EventCard";
 import Loading from "../../components/Loading/Loading";
+import SkeletonEventCard from "./SkeletonEventCard";
 
 const UpcomingEvent = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     fetch("https://good-gather-server.vercel.app/events")
       .then((res) => res.json())
       .then((data) => {
         const date = new Date();
         const upcoming = data.filter(
-          (event) => new Date(event.eventDate) > date
+          (event) => new Date(event.eventDate) > date,
         );
 
         setEvents(upcoming);
@@ -28,7 +30,7 @@ const UpcomingEvent = () => {
       .then((data) => {
         const date = new Date();
         const upcoming = data.result.filter(
-          (event) => new Date(event.eventDate) > date
+          (event) => new Date(event.eventDate) > date,
         );
 
         setEvents(upcoming);
@@ -46,13 +48,13 @@ const UpcomingEvent = () => {
     setLoading(true);
 
     fetch(
-      `https://good-gather-server.vercel.app/filter?eventType=${selectedType}`
+      `https://good-gather-server.vercel.app/filter?eventType=${selectedType}`,
     )
       .then((res) => res.json())
       .then((data) => {
         const now = new Date();
         const upcoming = data.result.filter(
-          (event) => new Date(event.eventDate) > now
+          (event) => new Date(event.eventDate) > now,
         );
         setEvents(upcoming);
         setLoading(false);
@@ -63,68 +65,83 @@ const UpcomingEvent = () => {
       });
   };
 
-  if (!events) {
-    return <Loading></Loading>;
-  }
-
   return (
-    <div className="bg-emerald-50 dark:bg-zinc-800 min-h-screen py-10 px-6">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-emerald-800 mb-10">
-        Upcoming Events
-      </h2>
-      <div className=" flex flex-col md:flex-row items-center justify-between mb-10 gap-x-20 gap-y-5">
-        <form
-          onSubmit={handleSearch}
-          className="flex grow items-center gap-2 w-full md:w-[unset]"
-        >
-          <input
-            type="search"
-            name="search"
-            placeholder="Search event by title..."
-            className="input grow bg-white border dark:placeholder-zinc-500 border-emerald-200 rounded-full px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-          />
-          <button
-            type="submit"
-            className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full px-6 shadow-md transition-all"
-          >
-            {loading ? "Searching...." : "Search"}
-          </button>
-        </form>
-        <form
-          onSubmit={handleFilter}
-          className="flex grow items-center gap-2 w-full md:w-[unset]"
-        >
-          <select
-            type="submit"
-            name="type"
-            className="select grow bg-white border border-emerald-200 dark:text-zinc-500 rounded-full px-4 py-2 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-          >
-            <option value="All">All Types</option>
-            <option value="Cleanup">Cleanup</option>
-            <option value="Plantation">Plantation</option>
-            <option value="Donation">Donation</option>
-            <option value="Education">Education</option>
-            <option value="Health">Health</option>
-            <option value="Others">Others</option>
-          </select>
-          <button
-            type="submit"
-            className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white rounded-full px-6 shadow-md transition-all"
-          >
-            {loading ? "Searching...." : "Search"}
-          </button>
-        </form>
-      </div>
-
-      {events.length === 0 ? (
-        <p className="text-center text-gray-500">No upcoming events found.</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {events.map((event) => (
-            <EventCard key={event._id} event={event} />
-          ))}
+    // Added bg-slate-50 and dark:bg-slate-950 for better theme contrast
+    <div className="min-h-screen py-16 px-6 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
+            Upcoming <span className="text-emerald-600">Events</span>
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400">
+            Join a cause and make a difference today.
+          </p>
         </div>
-      )}
+
+        {/* Search & Filter Bar */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {/* Search Form */}
+          <form onSubmit={handleSearch} className="flex w-full gap-2">
+            <input
+              type="search"
+              name="search"
+              placeholder="Search event..."
+              className="w-full bg-white dark:bg-slate-900 border border-emerald-200 dark:border-slate-700 rounded-full px-5 py-3 shadow-sm focus:ring-2 focus:ring-emerald-500 outline-none dark:text-white"
+            />
+            <button
+              type="submit"
+              // Added min-w-[100px] and flex items-center justify-center
+              className="min-w-[100px] bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-6 py-3 font-semibold transition-all shadow-md flex items-center justify-center"
+            >
+              {loading ? "..." : "Search"}
+            </button>
+          </form>
+
+          {/* Filter Form */}
+          <form onSubmit={handleFilter} className="flex w-full gap-2">
+            <select
+              name="type"
+              className="w-full bg-white dark:bg-slate-900 border border-emerald-200 dark:border-slate-700 rounded-full px-5 py-3 shadow-sm focus:ring-2 focus:ring-emerald-500 outline-none dark:text-slate-300"
+            >
+              <option value="All">All Types</option>
+              <option value="Cleanup">Cleanup</option>
+              <option value="Plantation">Plantation</option>
+              <option value="Donation">Donation</option>
+              <option value="Education">Education</option>
+              <option value="Health">Health</option>
+              <option value="Others">Others</option>
+            </select>
+            <button
+              type="submit"
+              // Added min-w-[100px] to match the Search button
+              className="min-w-[100px] bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-6 py-3 font-semibold transition-all shadow-md flex items-center justify-center"
+            >
+              Filter
+            </button>
+          </form>
+        </div>
+
+        {/* Grid Section */}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[...Array(8)].map((_, i) => (
+              <SkeletonEventCard key={i} />
+            ))}
+          </div>
+        ) : events.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-slate-500 dark:text-slate-400 text-lg">
+              No upcoming events found matching your criteria.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {events.map((event) => (
+              <EventCard key={event._id} event={event} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

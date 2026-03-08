@@ -1,62 +1,55 @@
 import React from "react";
-import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 import { IoLeaf } from "react-icons/io5";
 import { Link } from "react-router";
 
 const EventCard = ({ event }) => {
   return (
-    <div className="card bg-white dark:bg-emerald-100 rounded-2xl shadow-md overflow-hidden hover:scale-105 hover:shadow-lg transition-transform duration-300 flex flex-col h-[480px]">
-      
-      <img
-        src={event.thumbnail}
-        alt={event.title}
-        className="w-full h-52 object-cover"
-      />
+    <div className="group flex flex-col bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-xl transition-all duration-300">
+      {/* Thumbnail with Aspect Ratio */}
+      <div className="relative aspect-video overflow-hidden">
+        <img
+          src={event.thumbnail}
+          alt={event.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute top-3 left-3">
+          <span className="px-3 py-1 text-xs font-bold bg-white/90 dark:bg-slate-900/90 backdrop-blur text-emerald-700 rounded-full flex items-center gap-1 shadow-sm">
+            <IoLeaf size={12} /> {event.eventType}
+          </span>
+        </div>
+      </div>
 
-     
-      <div className="p-5 flex flex-col justify-between grow">
-        <div className="space-y-3 grow">
-          {/* Title */}
-          <h3 className="text-xl font-semibold text-emerald-800 min-h-14 leading-snug">
-            {event.title}
-          </h3>
+      {/* Content */}
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 line-clamp-2">
+          {event.title}
+        </h3>
 
-         
-          <div className="flex items-center text-gray-500 text-sm">
-            <FaMapMarkerAlt className="mr-2 text-emerald-600" />
-            {event.location}
+        <div className="space-y-2 mb-6 text-sm text-slate-600 dark:text-slate-400">
+          <div className="flex items-center gap-2">
+            <FaMapMarkerAlt className="text-emerald-500" />
+            <span className="truncate">{event.location}</span>
           </div>
-
-       
-          <div className="flex items-center text-gray-500 text-sm">
-            <FaCalendarAlt className="mr-2 text-emerald-600" />
+          <div className="flex items-center gap-2">
+            <FaCalendarAlt className="text-emerald-500" />
             {new Date(event.eventDate).toLocaleDateString("en-GB", {
-              day: "2-digit",
+              day: "numeric",
               month: "short",
               year: "numeric",
             })}
           </div>
-
-          
-          <div className="flex items-center text-gray-500 text-sm">
-            <span className="text-emerald-600 font-medium mr-1">
-              Created by:
-            </span>
-            <span className="truncate">{event.createdBy}</span>
-          </div>
         </div>
 
-      
-        <div className="flex justify-between items-center pt-4 mt-auto">
-          <span className="inline-flex items-center px-3 py-1 text-sm font-medium bg-emerald-100 text-emerald-700 rounded-full">
-            <IoLeaf className="mr-1" /> {event.eventType}
-          </span>
-
+        <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+            <FaUser size={12} /> {event.createdBy}
+          </div>
           <Link
             to={`/event-detail/${event.eventId || event._id}`}
-            className="btn bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white btn-sm border-0"
+            className="text-sm font-bold text-emerald-600 hover:text-emerald-700"
           >
-            View Details
+            Details →
           </Link>
         </div>
       </div>

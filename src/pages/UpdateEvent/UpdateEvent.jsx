@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { toast } from "react-toastify";
-import { AuthContext } from "../../provider/AuthPRovider";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router";
 import Loading from "../../components/Loading/Loading";
 
 const UpdateEvent = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [event, setEvent] = useState({});
+  const [event, setEvent] = useState(null);
   const [eventDate, setEventDate] = useState(new Date());
 
   useEffect(() => {
@@ -46,107 +45,100 @@ const UpdateEvent = () => {
       })
       .catch((error) => toast.error(error.message));
   };
-  if (!event) {
-    return <Loading></Loading>;
-  }
+
+  // Shared input class for consistency
+  const inputClass =
+    "w-full px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none transition-all";
+  const labelClass =
+    "block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2";
+
+  if (!event) return <Loading />;
 
   return (
-    <div className="card border border-gray-200 bg-emerald-50 dark:bg-emerald-100 w-full max-w-2xl mx-auto my-12 shadow-2xl rounded-2xl">
-      <div className="card-body p-8">
-        <h2 className="text-3xl font-bold text-center mb-6 text-emerald-800">
-          Update Event
+    <div className="min-h-screen py-10 px-6 transition-colors">
+      <title>Update Event</title>
+      <div className="max-w-2xl mx-auto bg-white dark:bg-slate-800 p-8 md:p-12 rounded-3xl shadow-lg border border-slate-200 dark:border-slate-700">
+        <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white text-center mb-10">
+          Update <span className="text-emerald-600">Event</span>
         </h2>
 
-        <form onSubmit={handleUpdateEvent} className="space-y-5">
+        <form onSubmit={handleUpdateEvent} className="space-y-6">
           <div>
-            <label className="label font-semibold text-emerald-700">
-              Event Title
-            </label>
+            <label className={labelClass}>Event Title</label>
             <input
               type="text"
               name="title"
               defaultValue={event.title}
               required
-              className="input w-full bg-white dark:text-zinc-900  rounded-full focus:outline-emerald-200"
-              placeholder="Enter event title"
+              className={inputClass}
             />
           </div>
 
-          <div>
-            <label className="label font-semibold text-emerald-700">
-              Event Type
-            </label>
-            <select
-              name="eventType"
-              defaultValue={event.eventType}
-              required
-              className="select w-full dark:text-zinc-900  bg-white rounded-full focus:outline-emerald-200"
-            >
-              <option value="">Select event type</option>
-              <option value="Cleanup">Cleanup</option>
-              <option value="Plantation">Plantation</option>
-              <option value="Donation">Donation</option>
-              <option value="Education">Education</option>
-              <option value="Health">Health</option>
-              <option value="Others">Others</option>
-            </select>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className={labelClass}>Event Type</label>
+              <select
+                name="eventType"
+                defaultValue={event.eventType}
+                required
+                className={inputClass}
+              >
+                <option value="Cleanup">Cleanup</option>
+                <option value="Plantation">Plantation</option>
+                <option value="Donation">Donation</option>
+                <option value="Education">Education</option>
+                <option value="Health">Health</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>Event Date</label>
+              <DatePicker
+                selected={eventDate}
+                onChange={(date) => setEventDate(date)}
+                minDate={new Date()}
+                className={`${inputClass} w-full`}
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
           </div>
+
           <div>
-            <label className="label font-semibold text-emerald-700">
-              Description
-            </label>
-            <textarea
-              name="description"
-              defaultValue={event.description}
-              required
-              rows="4"
-              className="textarea w-full bg-white dark:text-zinc-900  rounded-2xl focus:outline-emerald-200"
-              placeholder="Write a short description of your event"
-            ></textarea>
-          </div>
-          <div>
-            <label className="label font-semibold text-emerald-700">
-              Thumbnail URL
-            </label>
+            <label className={labelClass}>Thumbnail URL</label>
             <input
               type="url"
               name="thumbnail"
               defaultValue={event.thumbnail}
               required
-              className="input w-full bg-white dark:text-zinc-900  rounded-full focus:outline-emerald-200"
-              placeholder="https://example.com/image.jpg"
+              className={inputClass}
             />
           </div>
+
           <div>
-            <label className="label font-semibold text-emerald-700">
-              Location
-            </label>
+            <label className={labelClass}>Location</label>
             <input
               type="text"
               name="location"
               defaultValue={event.location}
               required
-              className="input w-full bg-white dark:text-zinc-900  rounded-full focus:outline-emerald-200"
-              placeholder="Enter event location"
+              className={inputClass}
             />
           </div>
+
           <div>
-            <label className="label font-semibold text-emerald-700">
-              Event Date
-            </label>
-            <br />
-            <DatePicker
-              selected={eventDate}
-              onChange={(date) => setEventDate(date)}
-              minDate={new Date()}
-              className="input w-full bg-white dark:text-zinc-900  rounded-full"
-              placeholderText="Select event date"
-              dateFormat="dd/MM/yyyy"
+            <label className={labelClass}>Description</label>
+            <textarea
+              name="description"
+              defaultValue={event.description}
+              required
+              rows="4"
+              className={inputClass}
             />
           </div>
+
           <button
             type="submit"
-            className="btn w-full text-white mt-6 rounded-full bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700"
+            className="w-full bg-slate-900 hover:bg-slate-900/50 dark:bg-white text-white dark:text-slate-900 dark:hover:bg-slate-200 hover:cursor-pointer font-bold py-4 rounded-xl shadow-lg shadow-emerald-600/20 transition-all"
           >
             Save Changes
           </button>

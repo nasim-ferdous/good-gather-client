@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import "./CreateEvent.css";
 
 const CreateEvent = () => {
   const { user } = use(AuthContext);
@@ -13,6 +12,7 @@ const CreateEvent = () => {
 
   const handleCreateEvent = (e) => {
     e.preventDefault();
+    if (!eventDate) return toast.error("Please select a date");
 
     const formData = {
       title: e.target.title.value,
@@ -24,126 +24,109 @@ const CreateEvent = () => {
       createdBy: user?.email,
       createdAt: new Date(),
     };
-    console.log(formData);
+
     fetch("https://good-gather-server.vercel.app/events", {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        toast.success("Successfully created event");
         navigate("/up-coming-event");
-
-        toast.success("successfully created event");
       })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+      .catch((error) => toast.error(error.message));
   };
+
+  // Shared input class for consistency
+  const inputClass =
+    "w-full px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none transition-all";
+  const labelClass =
+    "block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2";
+
   return (
-    <div className="card border border-gray-200 bg-emerald-50 dark:bg-emerald-100 w-full max-w-2xl mx-auto my-12 shadow-2xl rounded-2xl">
-      <div className="card-body p-8">
-        <h2 className="text-3xl font-bold text-center mb-6 text-emerald-800">
-          Create New Event
+    <div className="min-h-screen py-10 px-6 transition-colors">
+      <title>Create Event</title>
+      <div className="max-w-2xl mx-auto bg-white dark:bg-slate-800 p-8 md:p-12 rounded-3xl shadow-lg border border-slate-200 dark:border-slate-700">
+        <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white text-center mb-10">
+          Create New <span className="text-emerald-600">Event</span>
         </h2>
 
-        <form onSubmit={handleCreateEvent} className="space-y-5">
+        <form onSubmit={handleCreateEvent} className="space-y-6">
           <div>
-            <label className="label font-semibold text-emerald-700">
-              Event Title
-            </label>
+            <label className={labelClass}>Event Title</label>
             <input
               type="text"
               name="title"
               required
-              className="input w-full bg-white dark:placeholder-zinc-500 dark:text-zinc-900 rounded-full focus:outline-emerald-200"
-              placeholder="Enter event title"
+              className={inputClass}
+              placeholder="e.g. Community Beach Cleanup"
             />
           </div>
 
-          <div>
-            <label className="label font-semibold text-emerald-700">
-              Event Type
-            </label>
-            <select
-              defaultValue={""}
-              name="eventType"
-              required
-              className="select w-full dark:text-zinc-900  bg-white rounded-full focus:outline-emerald-200"
-            >
-              <option value="" disabled>
-                Select event type
-              </option>
-              <option value="Cleanup">Cleanup</option>
-              <option value="Plantation">Plantation</option>
-              <option value="Donation">Donation</option>
-              <option value="Education">Education</option>
-              <option value="Health">Health</option>
-              <option value="Others">Others</option>
-            </select>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className={labelClass}>Event Type</label>
+              <select name="eventType" required className={inputClass}>
+                <option value="" disabled selected>
+                  Select type
+                </option>
+                <option value="Cleanup">Cleanup</option>
+                <option value="Plantation">Plantation</option>
+                <option value="Donation">Donation</option>
+                <option value="Education">Education</option>
+                <option value="Health">Health</option>
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>Event Date</label>
+              <DatePicker
+                selected={eventDate}
+                onChange={(date) => setEventDate(date)}
+                minDate={new Date()}
+                className={`${inputClass} w-full`}
+                placeholderText="Select date"
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
           </div>
 
           <div>
-            <label className="label font-semibold text-emerald-700">
-              Description
-            </label>
-            <textarea
-              name="description"
-              required
-              rows="4"
-              className="textarea dark:placeholder-zinc-500 dark:text-zinc-900 w-full bg-white rounded-2xl focus:outline-emerald-200"
-              placeholder="Write a short description of your event"
-            ></textarea>
-          </div>
-
-          <div>
-            <label className="label font-semibold text-emerald-700">
-              Thumbnail URL
-            </label>
+            <label className={labelClass}>Thumbnail URL</label>
             <input
               type="url"
               name="thumbnail"
               required
-              className="input w-full dark:placeholder-zinc-500
-               dark:text-zinc-900  bg-white rounded-full focus:outline-emerald-200"
-              placeholder="https://example.com/image.jpg"
+              className={inputClass}
+              placeholder="https://..."
             />
           </div>
 
           <div>
-            <label className="label font-semibold text-emerald-700">
-              Location
-            </label>
+            <label className={labelClass}>Location</label>
             <input
               type="text"
               name="location"
               required
-              className="input dark:placeholder-zinc-500 dark:text-zinc-900  w-full bg-white rounded-full focus:outline-emerald-200"
-              placeholder="Enter event location"
+              className={inputClass}
+              placeholder="City, District"
             />
           </div>
 
           <div>
-            <label className="label font-semibold text-emerald-700">
-              Event Date
-            </label>
-            <br />
-            <DatePicker
-              selected={eventDate}
-              onChange={(date) => setEventDate(date)}
-              minDate={new Date()}
-              className="input dark:placeholder-zinc-500 dark:text-zinc-900  w-full bg-white rounded-full"
-              placeholderText="Select event date"
-              dateFormat="dd/MM/yyyy"
+            <label className={labelClass}>Description</label>
+            <textarea
+              name="description"
+              required
+              rows="4"
+              className={inputClass}
+              placeholder="Share details about the event..."
             />
           </div>
 
           <button
             type="submit"
-            className="btn w-full text-white mt-6 rounded-full bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700"
+            className="w-full bg-slate-900 hover:bg-slate-900/50 dark:bg-white text-white dark:text-slate-900 dark:hover:bg-slate-200 hover:cursor-pointer font-bold py-4 rounded-xl shadow-lg shadow-emerald-600/20 transition-all"
           >
             Create Event
           </button>

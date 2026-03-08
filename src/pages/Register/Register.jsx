@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { toast } from "react-toastify";
@@ -7,9 +7,10 @@ import { LuEye, LuEyeClosed } from "react-icons/lu";
 const Register = () => {
   const [show, setShow] = useState(false);
   const { createUser, googleSignIn, updateProfileUser, setUser } =
-    use(AuthContext);
+    React.use(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -17,16 +18,13 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const regEx = /^(?=.*[A-Z])(?=.*[a-z]).+$/;
-    if (password.length < 6) {
-      toast.error("Password should be at least 6 characters");
-      return;
-    }
-    if (!regEx.test(password)) {
-      toast.error(
-        "Password must include at least one uppercase and one lowercase letter."
+
+    if (password.length < 6)
+      return toast.error("Password should be at least 6 characters");
+    if (!regEx.test(password))
+      return toast.error(
+        "Password must include at least one uppercase and one lowercase letter.",
       );
-      return;
-    }
 
     createUser(email, password)
       .then((result) => {
@@ -34,133 +32,134 @@ const Register = () => {
         updateProfileUser({ displayName: name, photoURL: photo })
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
-            toast.success("successfully register");
-            navigate(`${location.state ? location.state : "/"}`);
+            toast.success("Successfully registered");
+            navigate(location.state || "/");
           })
-          .catch((error) => {
-            toast.error(error.message);
-            setUser(user);
-          });
+          .catch((error) => toast.error(error.message));
       })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+      .catch((error) => toast.error(error.message));
   };
+
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(() => {
-        toast.success("successfully registered");
-        navigate(`${location.state ? location.state : "/"}`);
+        toast.success("Successfully registered");
+        navigate(location.state || "/");
       })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+      .catch((error) => toast.error(error.message));
   };
 
+  const inputClass =
+    "w-full px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 outline-none transition-all";
+  const labelClass =
+    "block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2";
+
   return (
-    <div className="flex justify-center items-center py-10">
-      <div className="card bg-base-100 dark:bg-emerald-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <div className="card-body">
-          <h1 className="text-3xl text-center text-emerald-700 font-bold">
-            Register Now!
+    <div className="min-h-screen flex items-center justify-center  p-6 transition-colors duration-300">
+      <title>Register</title>
+      <div className="flex flex-col lg:flex-row w-full max-w-5xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
+        {/* Left Side: Form */}
+        <div className="w-full lg:w-1/2 p-8 md:p-12">
+          <h1 className="text-3xl font-black text-slate-900 dark:text-white mb-8">
+            Create <span className="text-emerald-600">Account</span>
           </h1>
-          <form onSubmit={handleRegister}>
-            <fieldset className="fieldset">
-              {/* name */}
-              <label className="label">Name</label>
+
+          <form onSubmit={handleRegister} className="space-y-4">
+            <div>
+              <label className={labelClass}>Full Name</label>
               <input
                 type="text"
                 name="name"
-                className="input"
+                className={inputClass}
                 placeholder="Your Name"
                 required
               />
-              {/* photo url */}
-              <label className="label">Photo</label>
+            </div>
+            <div>
+              <label className={labelClass}>Photo URL</label>
               <input
                 type="url"
                 name="photo"
-                className="input"
-                placeholder="Photo Url"
+                className={inputClass}
+                placeholder="https://..."
                 required
               />
-              {/* email */}
-              <label className="label">Email</label>
+            </div>
+            <div>
+              <label className={labelClass}>Email Address</label>
               <input
                 type="email"
                 name="email"
-                className="input"
-                placeholder="Email"
+                className={inputClass}
+                placeholder="name@example.com"
                 required
               />
-              {/* password */}
+            </div>
+            <div>
+              <label className={labelClass}>Password</label>
               <div className="relative">
-                <label className="label">Password</label>
                 <input
                   type={show ? "text" : "password"}
                   name="password"
-                  className="input"
-                  placeholder="Password"
+                  className={inputClass}
+                  placeholder="••••••••"
                   required
                 />
                 <button
-                  onClick={() => setShow(!show)}
                   type="button"
-                  className="btn btn-xs bg-emerald-600 hover:bg-emerald-700 absolute top-6 right-5"
+                  onClick={() => setShow(!show)}
+                  className="absolute right-4 top-3.5 text-slate-400 hover:text-emerald-600"
                 >
-                  {show ? <LuEye /> : <LuEyeClosed />}
+                  {show ? <LuEye size={20} /> : <LuEyeClosed size={20} />}
                 </button>
               </div>
-              <button
-                type="submit"
-                className="btn bg-emerald-600 hover:bg-emerald-700 mt-4"
-              >
-                Register
-              </button>
+            </div>
 
-              <button
-                type="button"
-                onClick={handleGoogleSignIn}
-                className="btn bg-emerald-500 text-black border-[#e5e5e5]"
-              >
-                <svg
-                  aria-label="Google logo"
-                  width="16"
-                  height="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <g>
-                    <path d="m0 0H512V512H0" fill="#fff"></path>
-                    <path
-                      fill="#34a853"
-                      d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"
-                    ></path>
-                    <path
-                      fill="#4285f4"
-                      d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"
-                    ></path>
-                    <path
-                      fill="#fbbc02"
-                      d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"
-                    ></path>
-                    <path
-                      fill="#ea4335"
-                      d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"
-                    ></path>
-                  </g>
-                </svg>
-                Login with Google
-              </button>
-            </fieldset>
+            <button
+              type="submit"
+              className="w-full bg-slate-900 hover:bg-slate-900/50 dark:bg-white text-white dark:text-slate-900 dark:hover:bg-slate-200 hover:cursor-pointer font-bold py-4 rounded-xl shadow-lg shadow-emerald-600/20 transition-all mt-4"
+            >
+              Register
+            </button>
+
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              className="w-full flex items-center justify-center gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-emerald-600 py-3.5 rounded-xl font-semibold transition-all text-slate-700 dark:text-slate-300"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                alt="Google"
+                className="w-5 h-5"
+              />
+              Sign up with Google
+            </button>
           </form>
 
-          <p className="dark:text-zinc-500">
-            Already registered? please{" "}
-            <Link to={"/login"} className="text-emerald-600 font-bold">
-              Signin
+          <p className="mt-8 text-center text-slate-600 dark:text-slate-400">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-emerald-600 font-bold hover:underline"
+            >
+              Sign in
             </Link>
           </p>
+        </div>
+
+        {/* Right Side: Visual/Branding */}
+        <div className="hidden lg:flex w-1/2 bg-emerald-600 p-12 flex-col justify-center text-white">
+          <h2 className="text-4xl font-black mb-6">Join our Community</h2>
+          <p className="text-emerald-100 text-lg leading-relaxed">
+            By creating an account, you gain the power to host cleanup drives,
+            plant trees, and donate to causes that matter most.
+          </p>
+          <div className="mt-12 bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
+            <p className="font-semibold italic">
+              "Small acts, when multiplied by millions of people, can transform
+              the world."
+            </p>
+          </div>
         </div>
       </div>
     </div>
