@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { toast } from "react-toastify";
@@ -7,7 +7,7 @@ import { LuEye, LuEyeClosed } from "react-icons/lu";
 const Register = () => {
   const [show, setShow] = useState(false);
   const { createUser, googleSignIn, updateProfileUser, setUser } =
-    React.use(AuthContext);
+    useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 

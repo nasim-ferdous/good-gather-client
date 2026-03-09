@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthPRovider";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const { signinUser, googleSignIn, forgetPasswordUser } =
-    React.use(AuthContext);
+    useContext(AuthContext);
   const [show, setShow] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();

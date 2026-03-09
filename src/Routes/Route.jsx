@@ -6,7 +6,7 @@ import Register from "../pages/Register/Register";
 import CreateEvent from "../pages/CreateEvent/CreateEvent";
 import PrivetRoute from "../provider/PrivetRoute";
 import UpcomingEvent from "../pages/UpcommingEvent/UpcomingEvent";
-import EventDetail from "../pages/Eventdetail/Eventdetail";
+import EventDetail from "../pages/EventDetail/EventDetail";
 import JoinedEvent from "../pages/JoinedEvent/JoinedEvent";
 import ManageEvents from "../pages/ManageEvents/ManageEvents";
 import UpdateEvent from "../pages/UpdateEvent/UpdateEvent";
